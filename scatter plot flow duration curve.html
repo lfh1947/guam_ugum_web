@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<h1>  DURATION CURVE PLOTTER </h1>
+
+
+<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+<p id="demo"></p>
+<script>
+document.getElementById("demo").innerHTML = "top of script";
+
+const text = '{"ARCID":8933,"GRID_CODE":3150,"FROM_NODE":8855,"TO_NODE":8893,"Q95":1.53,"Q80":3.62,"Q50":11.99,"Q30":21.83,"Q10":57.86,"Q0":2533.62,"QAVG":31.5,"Shape_Leng":69.0631991284,"medianFlow":31.13,"streamName":"Ugum River","DAMi2":7.07,"AvgUs":114.25}'
+
+const obj = JSON.parse(text); 
+ document.getElementById("demo").innerHTML = obj.ARCID + ", " + obj.streamName + ", " + obj.Q95;
+
+var xyValues = [  
+  {x:95, y:obj.Q95},
+  {x:80, y:obj.Q80},
+  {x:50, y:obj.Q50},
+  {x:30, y:obj.Q30},
+  {x:10, y:obj.Q10},
+  {x:0, y:obj.Q0}
+];
+document.getElementById("demo").innerHTML = "JUST BEFORE CHART";
+
+new Chart("myChart", {
+  type: "scatter",
+  data: {
+    datasets: [{
+      pointRadius: 4,
+      pointBackgroundColor: "rgb(0,0,255)",
+      data: xyValues
+              }] //CLOSES DATASETS
+        }, //CLOSES DATA
+  options: {
+    legend: {display: false},
+    scales: {
+      xAxes: [{
+	     ticks: {min: 0, max:100},
+	     title: {
+	       display:true,
+		   text: 'ECEEDANCE PERCENT'
+			    }  //CLOSES TITLE
+	            
+	      
+		      }], //CLOSES X AXIES
+		        
+// document.getElementById("demo").innerHTML = "JUST after x axies tics";  
+       yAxes: [{ // type: "linear",  //type:"logarithmic",
+	       ticks: {min: 1, max:3000}
+			    // title: {
+	             //   display:true,
+		         //   text: "FLOW(CFS)"}                                                                                                                                                                                                                                                                                              ]
+	           
+			   }], //CLOSES  YAXIES
+             } //SCALES CLOSED
+	
+           } //CLOSES OPTIONS
+});  //CLOSES CHART
+document.getElementById("demo").innerHTML = "JUST AFTER CHART";
+</script>
+
+</body>
+</html>
